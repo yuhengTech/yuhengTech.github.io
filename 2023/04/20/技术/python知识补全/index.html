@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+  <!-- 元数据 -->
+  <meta charset="utf-8">
+  <link rel="icon" href="https://yuhengtech.oss-cn-hangzhou.aliyuncs.com/icon/favicon.png">
+  
+  <title>python知识补全 | 玉衡</title>
+  
+  <meta name="author" content="玉衡" />
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="robots" content="index,follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="format-detection" content="telphone=no, email=no" />
+  
+    <meta name="keywords" content="python" />
+  
+  <meta name="description" content="一些易忘知识点">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python知识补全">
+<meta property="og:url" content="http://yuheng.tech/2023/04/20/%E6%8A%80%E6%9C%AF/python%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%A8/index.html">
+<meta property="og:site_name" content="玉衡">
+<meta property="og:description" content="一些易忘知识点">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://yuhengtech.oss-cn-hangzhou.aliyuncs.com/icon/favicon.png">
+<meta property="article:published_time" content="2023-04-20T14:35:25.000Z">
+<meta property="article:modified_time" content="2023-04-21T14:42:03.383Z">
+<meta property="article:author" content="玉衡">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yuhengtech.oss-cn-hangzhou.aliyuncs.com/icon/favicon.png">
+  
+  <!-- 站点验证相关 -->
+  
+    
+    
+    
+  
+  <!-- 样式表文件 -->
+  <link rel="stylesheet" id="kratos-css" href="/css/kratosr.min.css" media="all"></script>
+  
+  
+    <link rel="stylesheet" id="highlight-css" href="/css/highlight/night-eighties.min.css" media="all"></script>
+  
+  <link rel="stylesheet" id="fontawe-css" href="/vendors/font-awesome@4.7.0/css/font-awesome.min.css" media="all"></script>
+  <link rel="stylesheet" id="nprogress-css" href="/vendors/nprogress@0.2.0/nprogress.css" media="all"></script>
+  
+  
+    <link rel="stylesheet" href="/vendors/aplayer@1.10.1/dist/APlayer.min.css"></script>
+  
+  
+    <link rel="stylesheet" href="/vendors/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css"></script>
+  
+  <!-- 不得不预先加载的一些JS文件 -->
+  <script src="/vendors/jquery@3.6.0/dist/jquery.min.js"></script>
+  
+    <script src="/vendors/qrcode_js@1.0.0/qrcode.min.js"></script>
+  
+  
+  <style>
+    
+      .kratos-cover.kratos-cover-2 {
+        background-image: url('https://yuhengtech.oss-cn-hangzhou.aliyuncs.com/icon/banner.jpg');
+      }
+    
+    
+      @media(min-width:768px) {
+        body.custom-background {
+          background-image: url('https://yuhengtech.oss-cn-hangzhou.aliyuncs.com/icon/bg.jpg');
+        }
+      }
+    
+  </style>
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+    <body class="custom-background">
+        <div id="kratos-wrapper">
+    <div id="kratos-page">
+        <div id="kratos-header">
+            <header id="kratos-desktop-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="nav-header">
+                        <nav id="kratos-menu-wrap">
+                            <ul id="kratos-primary-menu" class="sf-menu">
+                                
+                                    
+                                        <li>
+                                            
+                                                <a href="/">
+                                            
+                                                
+                                                    <i class="fa fa-home"></i>
+                                                
+                                                首页
+                                            </a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a>
+                                            
+                                                
+                                                    <i class="fa fa-book"></i>
+                                                
+                                                目录
+                                            </a>
+                                            
+                                                <ul class="sub-menu">
+                                                    
+                                                        <li>
+                                                            <a href="/categories/%E9%98%85%E8%AF%BB/">
+                                                                
+                                                                阅读
+                                                            </a>
+                                                        </li>
+                                                    
+                                                        <li>
+                                                            <a href="/categories/%E6%8A%80%E6%9C%AF/">
+                                                                
+                                                                技术
+                                                            </a>
+                                                        </li>
+                                                    
+                                                </ul>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="/archives/">
+                                            
+                                                
+                                                    <i class="fa fa-file"></i>
+                                                
+                                                时记
+                                            </a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="/friends/">
+                                            
+                                                
+                                                    <i class="fa fa-paw"></i>
+                                                
+                                                友链
+                                            </a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a>
+                                            
+                                                
+                                                    <i class="fa fa-link"></i>
+                                                
+                                                链接
+                                            </a>
+                                            
+                                                <ul class="sub-menu">
+                                                    
+                                                        <li>
+                                                            <a target="_blank" rel="noopener" href="https://github.com/yuhengtech">
+                                                                
+                                                                Github
+                                                            </a>
+                                                        </li>
+                                                    
+                                                </ul>
+                                            
+                                        </li>
+                                    
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+            <header id="kratos-mobile-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="color-logo"><a href="/">玉衡</a></div>
+                    <div class="nav-toggle">
+                        <a class="kratos-nav-toggle js-kratos-nav-toggle">
+                            <i></i>
+                        </a>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="kratos-start kratos-hero-2">
+            <!-- <div class="kratos-overlay"></div> -->
+            <div class="kratos-cover kratos-cover-2 text-center">
+                <div class="desc desc2 animate-box">
+                    <a href="/">
+                        <h2>玉衡</h2> <br />
+                        <span>中天日月回金阙，南极星辰绕玉衡</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="kratos-blog-post">
+            <div class="container">
+                <div id="main" class="row">
+                    
+
+        
+
+            <section class="col-md-8">
+
+        
+
+            <article itemscope itemtype="https://schema.org/Article">
+    
+    <link itemprop="mainEntityOfPage" href="http://yuheng.tech/2023/04/20/%E6%8A%80%E6%9C%AF/python%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%A8/">
+    <div class="kratos-hentry kratos-post-inner clearfix">
+        <header class="kratos-entry-header">
+            
+                <h1 class="kratos-entry-title text-center" itemprop="name headline">python知识补全</h1>
+            
+            
+            <ul class="kratos-post-meta text-center">
+                <li><time datetime="2023-04-20T14:35:25.000Z" itemprop="datePublished"><i class="fa fa-calendar"></i> 2023-04-20</time></li>
+                <li itemprop="author" itemscope itemtype="https://schema.org/Person">
+                    <i class="fa fa-user"></i> 作者 <span itemprop="name">玉衡</span>
+                </li>
+                
+                    <li>
+                        <i class="fa fa-edit"></i> 
+                        
+                        
+                            ~11.52K
+                        
+                        字
+                    </li>
+                
+                
+            </ul>
+        </header>
+        <div class="kratos-post-content">
+            
+            <div id="expire-alert" class="alert alert-warning hidden" role="alert">
+                <div class="icon"><i class="fa fa-warning"></i></div>
+                <div class="text"><p>本文最后编辑于 <time datetime="1682088123383"></time> 前，其中的内容可能需要更新。</p></div>
+            </div>
+            
+            
+            
+            <hr />
+            <div itemprop="articleBody"><p>一些易忘知识点</p>
+<span id="more"></span>
+<h1 id="list-extend"><a href="#list-extend" class="headerlink" title="list.extend()"></a>list.extend()</h1><h2 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h2><p>extend() 函数用于在列表末尾一次性追加另一个序列中的多个值（用新列表扩展原来的列表）。</p>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><p>extend()方法语法：<br>list.extend(seq)</p>
+<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><ul>
+<li>seq – 元素列表。</li>
+</ul>
+<h2 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h2><p>该方法没有返回值，但会在已存在的列表中添加新的列表内容。</p>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>以下实例展示了 extend()函数的使用方法：<br>#!&#x2F;usr&#x2F;bin&#x2F;python aList &#x3D; [123, ‘xyz’, ‘zara’, ‘abc’, 123]; bList &#x3D; [2009, ‘manni’]; aList.extend(bList) print “Extended List : “, aList ;<br>以上实例输出结果如下：<br>Extended List :  [123, ‘xyz’, ‘zara’, ‘abc’, 123, 2009, ‘manni’]</p>
+<h1 id="numpy-tile"><a href="#numpy-tile" class="headerlink" title="numpy.tile()"></a>numpy.tile()</h1><p>numpy.tile()是个什么函数呢，说白了，就是把数组沿各个方向复制</p>
+<p>比如 a &#x3D; np.array([0,1,2]),    np.tile(a,(2,1))就是把a先沿x轴（就这样称呼吧）复制1倍，即没有复制，仍然是 [0,1,2]。 再把结果沿y方向复制2倍，即最终得到</p>
+<p> array([[0,1,2],<br>           [0,1,2]])</p>
+<h1 id="列表去重"><a href="#列表去重" class="headerlink" title="列表去重"></a>列表去重</h1><p>list(set([a,a,a,b,b,c]))</p>
+<h1 id="collections-Counter"><a href="#collections-Counter" class="headerlink" title="collections.Counter()"></a>collections.Counter()</h1><p>可以快速统计词频。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#统计词频</span></span><br><span class="line">colors = [<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>]</span><br><span class="line">result = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> color <span class="keyword">in</span> colors:</span><br><span class="line">    <span class="keyword">if</span> result.get(color)==<span class="literal">None</span>:</span><br><span class="line">        result[color]=<span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        result[color]+=<span class="number">1</span></span><br><span class="line"><span class="built_in">print</span> (result)</span><br><span class="line"><span class="comment">#&#123;&#x27;red&#x27;: 2, &#x27;blue&#x27;: 3, &#x27;green&#x27;: 1&#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Counter</span><br><span class="line">colors = [<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>]</span><br><span class="line">c = Counter(colors)</span><br><span class="line"><span class="built_in">print</span> (<span class="built_in">dict</span>(c))</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="1-Python基础"><a href="#1-Python基础" class="headerlink" title="1. Python基础"></a>1. <strong>Python基础</strong></h1><h2 id="字符串与编码"><a href="#字符串与编码" class="headerlink" title="字符串与编码"></a><strong>字符串与编码</strong></h2><h3 id="编码"><a href="#编码" class="headerlink" title="编码"></a><strong>编码</strong></h3><p>在最新的Python 3版本中，字符串是以Unicode编码的，也就是说，Python的字符串支持多语言，例如：</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>print(‘包含中文的str’)<br>包含中文的str<br>对于单个字符的编码，Python提供了ord()函数获取字符的整数表示，chr()函数把编码转换为对应的字符：</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p><em>&gt;&gt;&gt; ord(‘A’)</em><br><em>65</em><br><em>&gt;&gt;&gt; ord(‘中’)</em><br><em>20013</em><br><em>&gt;&gt;&gt; chr(66)</em><br><em>‘B’</em><br><em>&gt;&gt;&gt; chr(25991)</em><br><em>‘文’</em></p>
+<h3 id="格式化"><a href="#格式化" class="headerlink" title="格式化"></a><strong>格式化</strong></h3><p>在Python中，采用的格式化方式和C语言是一致的，用%实现，举例如下：</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>‘Hello, %s’ % ‘world’’Hello, world’<br>‘Hi, %s, you have $%d.’ % (‘Michael’, 1000000)’Hi, Michael, you have $1000000.’<br>你如果只有一个%?，括号可以省略。<br>常见的占位符有：</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th><strong>占位符</strong></th>
+<th><strong>替换内容</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>%d</td>
+<td>整数</td>
+</tr>
+<tr>
+<td>%f</td>
+<td>浮点数</td>
+</tr>
+<tr>
+<td>%s</td>
+<td>字符串</td>
+</tr>
+<tr>
+<td>%x</td>
+<td>十六进制整数</td>
+</tr>
+</tbody></table>
+<p>如果你不太确定应该用什么，%s永远起作用，它会把任何数据类型转换为字符串：</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>‘Age: %s. Gender: %s’ % (25, True)<br>‘Age: 25. Gender: True’<br>有些时候，字符串里面的%是一个普通字符怎么办？这个时候就需要转义，用%%来表示一个%：<br>‘growth rate: %d %%’ % 7<br>‘growth rate: 7 %’</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h3 id="format"><a href="#format" class="headerlink" title="format()"></a><strong>format()</strong></h3><p>另一种格式化字符串的方法是使用字符串的format()方法，它会用传入的参数依次替换字符串内的占位符{0}、{1}……，不过这种方式写起来比%要麻烦得多：</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>‘Hello, {0}, 成绩提升了 {1:.1f}%’.format(‘小明’, 17.125)<br>‘Hello, 小明, 成绩提升了 17.1%’</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h3 id="f-string"><a href="#f-string" class="headerlink" title="f-string"></a><strong>f-string</strong></h3><p>最后一种格式化字符串的方法是使用以f开头的字符串，称之为f-string，它和普通字符串不同之处在于，字符串如果包含{xxx}，就会以对应的变量替换：</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>r &#x3D; 2.5&gt;&gt;&gt; s &#x3D; 3.14 * r ** 2<br>print(f’The area of a circle with radius {r} is {s:.2f}’)<br>The area of a circle <strong>with</strong> radius 2.5 <strong>is</strong> 19.62<br>上述代码中，{r}被变量r的值替换，{s:.2f}被变量s的值替换，并且:后面的.2f指定了格式化参数（即保留两位小数），因此，{s:.2f}的替换结果是19.62。</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h2 id="List-and-tuple"><a href="#List-and-tuple" class="headerlink" title="List and tuple"></a><strong>List and tuple</strong></h2><h3 id="list"><a href="#list" class="headerlink" title="list"></a><strong>list</strong></h3><p>如果要取最后一个元素，除了计算索引位置外，还可以用-1做索引，直接获取最后一个元素：</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>classmates[-1]’Tracy’<br>list是一个可变的有序表，所以，可以往list中追加元素到末尾：<br>classmates.append(‘Adam’)<br>classmates<br>[‘Michael’, ‘Bob’, ‘Tracy’, ‘Adam’]<br>也可以把元素插入到指定的位置，比如索引号为1的位置：<br>classmates.insert(1, ‘Jack’)<br>classmates<br>[‘Michael’, ‘Jack’, ‘Bob’, ‘Tracy’, ‘Adam’]<br>要删除list末尾的元素，用pop()方法：<br>classmates.pop()<br>‘Adam’<br>classmates<br>[‘Michael’, ‘Jack’, ‘Bob’, ‘Tracy’]<br>要删除指定位置的元素，用pop(i)方法，其中i是索引位置：<br>classmates.pop(1)<br>‘Jack’<br>classmates<br>[‘Michael’, ‘Bob’, ‘Tracy’]<br>要把某个元素替换成别的元素，可以直接赋值给对应的索引位置：<br>classmates[1] &#x3D; ‘Sarah’<br>classmates<br>[‘Michael’, ‘Sarah’, ‘Tracy’]<br>list里面的元素的数据类型也可以不同，比如：<br>L &#x3D; [‘Apple’, 123, True]<br>list元素也可以是另一个list，比如：<br>s &#x3D; [‘python’, ‘java’, [‘asp’, ‘php’], ‘scheme’]<br>len(s)4<br>要注意s只有4个元素，其中s[2]又是一个list，如果拆开写就更容易理解了：<br>p &#x3D; [‘asp’, ‘php’]<br>s &#x3D; [‘python’, ‘java’, p, ‘scheme’]<br>要拿到’php’可以写p[1]或者s[2][1]，因此s可以看成是一个二维数组</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h3 id="Tuple"><a href="#Tuple" class="headerlink" title="Tuple"></a><strong>Tuple</strong></h3><p>tuple一旦初始化就不能修改，也没有append()，insert()这样的方法。其他获取元素的方法和list是一样的<br>只有1个元素的tuple定义时必须加一个逗号,，来消除歧义：</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>t &#x3D; (1,)<br>t<br>(1,)</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h2 id="条件判断"><a href="#条件判断" class="headerlink" title="条件判断"></a><strong>条件判断</strong></h2><p>if &lt;条件判断1&gt;:<br>&lt;执行1&gt;<br>elif &lt;条件判断2&gt;:<br>&lt;执行2&gt;<br>else:<br>&lt;执行3&gt;</p>
+<h2 id="循环"><a href="#循环" class="headerlink" title="循环"></a><strong>循环</strong></h2><p>range能生成0到n的数列</p>
+<p>break语句可以在循环过程中直接退出循环，而continue语句可以提前结束本轮循环，并直接开始下一轮循环。这两个语句通常都必须配合if语句使用。<br>要特别注意，不要滥用break和continue语句。break和continue会造成代码执行逻辑分叉过多，容易出错。大多数循环并不需要用到break和continue语句，上面的两个例子，都可以通过改写循环条件或者修改循环逻辑，去掉break和continue语句。</p>
+<h2 id="dict和set"><a href="#dict和set" class="headerlink" title="dict和set"></a><strong>dict和set</strong></h2><h3 id="dict"><a href="#dict" class="headerlink" title="**dict **"></a>**dict **</h3><p>如果key不存在，dict就会报错：</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>d[‘Thomas’]<br>Traceback (most recent call last):<br>File “<stdin>“, line 1, in <module><br>KeyError: ‘Thomas’<br>要避免key不存在的错误，有两种办法，一是通过in判断key是否存在：<br>‘Thomas’ <strong>in</strong> d<br>False<br>二是通过dict提供的get()方法，如果key不存在，可以返回None，或者自己指定的value：<br>d.get(‘Thomas’)<br>d.get(‘Thomas’, -1)<br>-1<br>注意：返回None的时候Python的交互环境不显示结果。<br>要删除一个key，用pop(key)方法，对应的value也会从dict中删除：<br>d.pop(‘Bob’)75<br>d<br>{‘Michael’: 95, ‘Tracy’: 85}</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h3 id="set"><a href="#set" class="headerlink" title="set"></a><strong>set</strong></h3><p>重复元素在set中自动被过滤：</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>s &#x3D; set([1, 1, 2, 2, 3, 3])<br>s<br>{1, 2, 3}<br>通过add(key)方法可以添加元素到set中，可以重复添加，但不会有效果：<br>s.add(4)<br>s<br>{1, 2, 3, 4}<br>通过remove(key)方法可以删除元素：<br>s.remove(4)<br>s<br>{1, 2, 3}<br>set可以看成数学意义上的无序和无重复元素的集合，因此，两个set可以做数学意义上的交集、并集等操作：<br>s1 &#x3D; set([1, 2, 3])<br>s2 &#x3D; set([2, 3, 4])<br>s1 &amp; s2<br>{2, 3}<br>s1 | s2<br>{1, 2, 3, 4}</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h1 id="2-函数"><a href="#2-函数" class="headerlink" title="2. 函数"></a>2. <strong>函数</strong></h1><p><strong>if</strong> <strong>not</strong> isinstance(x, (int, float)):<br>isinstance可以判断A和B是否一致，或者A是否在B元组中</p>
+<h2 id="返回多个值"><a href="#返回多个值" class="headerlink" title="返回多个值"></a><strong>返回多个值</strong></h2><p>函数可以返回多个值吗？答案是肯定的。<br>比如在游戏中经常需要从一个点移动到另一个点，给出坐标、位移和角度，就可以计算出新的坐标：<br><strong>import</strong> math<br><strong>def</strong> <strong>move</strong>(x, y, step, angle&#x3D;0):<br>nx &#x3D; x + step * math.cos(angle)<br>ny &#x3D; y - step * math.sin(angle)<br><strong>return</strong> nx, ny<br>import math语句表示导入math包，并允许后续代码引用math包里的sin、cos等函数。<br>然后，我们就可以同时获得返回值：</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>x, y &#x3D; move(100, 100, 60, math.pi &#x2F; 6)<br>print(x, y)<br>151.96152422706632 70.0<br>但其实这只是一种假象，Python函数返回的仍然是单一值：<br>r &#x3D; move(100, 100, 60, math.pi &#x2F; 6)<br>print(r)<br>(151.96152422706632, 70.0)<br>原来返回值是一个tuple！但是，在语法上，返回一个tuple可以省略括号，而多个变量可以同时接收一个tuple，按位置赋给对应的值，所以，Python的函数返回多值其实就是返回一个tuple，但写起来更方便。</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h2 id="函数的参数"><a href="#函数的参数" class="headerlink" title="函数的参数"></a>函数的参数</h2><p>内容太多，参见</p>
+<h3 id="默认参数"><a href="#默认参数" class="headerlink" title="默认参数"></a>默认参数</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">power</span>(<span class="params">x, n=<span class="number">2</span></span>):</span><br><span class="line">    s = <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> n &gt; <span class="number">0</span>:</span><br><span class="line">        n = n - <span class="number">1</span></span><br><span class="line">        s = s * x</span><br><span class="line">    <span class="keyword">return</span> s</span><br></pre></td></tr></table></figure>
+<p>默认参数可以简化函数的调用。设置默认参数时，有几点要注意：<br>一是必选参数在前，默认参数在后，否则Python的解释器会报错（思考一下为什么默认参数不能放在必选参数前面）；<br>二是如何设置默认参数。<br>当函数有多个参数时，把变化大的参数放前面，变化小的参数放后面。变化小的参数就可以作为默认参数。<br>使用默认参数有什么好处？最大的好处是能降低调用函数的难度。</p>
+<p>默认参数很有用，但使用不当，也会掉坑里。默认参数有个最大的坑，演示如下：<br>先定义一个函数，传入一个list，添加一个END再返回：<br>def add_end(L&#x3D;[]):<br> L.append(‘END’)<br> return L<br>当你正常调用时，结果似乎不错：</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>add_end([1, 2, 3])<br>[1, 2, 3, ‘END’]<br>add_end([‘x’, ‘y’, ‘z’])<br>[‘x’, ‘y’, ‘z’, ‘END’]<br>当你使用默认参数调用时，一开始结果也是对的：<br>add_end()<br> [‘END’]<br>但是，再次调用add_end()时，结果就不对了：<br>add_end()<br> [‘END’, ‘END’]<br>add_end()<br>[‘END’, ‘END’, ‘END’]<br>很多初学者很疑惑，默认参数是[]，但是函数似乎每次都“记住了”上次添加了’END’后的list。<br>原因解释如下：<br>Python函数在定义的时候，默认参数L的值就被计算出来了，即[]，因为默认参数L也是一个变量，它指向对象[]，每次调用该函数，如果改变了L的内容，则下次调用时，默认参数的内容就变了，不再是函数定义时的[]了。<br> 定义默认参数要牢记一点：默认参数必须指向不变对象！<br>要修改上面的例子，我们可以用None这个不变对象来实现：</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">add_end</span>(<span class="params">L=<span class="literal">None</span></span>):    </span><br><span class="line"> <span class="keyword">if</span> L <span class="keyword">is</span> <span class="literal">None</span>:        </span><br><span class="line"> L = []     </span><br><span class="line">L.append(<span class="string">&#x27;END&#x27;</span>)    </span><br><span class="line"> <span class="keyword">return</span> L</span><br></pre></td></tr></table></figure>
+<h3 id="可变参数"><a href="#可变参数" class="headerlink" title="可变参数"></a>可变参数</h3><p>*参数为可变参数 用来传入N个参数<br>我们把函数的参数改为可变参数：<br>def calc(<em>numbers):<br> sum &#x3D; 0<br> for n in numbers:<br>  sum &#x3D; sum + n * n     return sum<br>定义可变参数和定义一个list或tuple参数相比，仅仅在参数前面加了一个</em>号。在函数内部，参数numbers接收到的是一个tuple，因此，函数代码完全不变。但是，调用该函数时，可以传入任意个参数，包括0个参数：</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>calc(1, 2)<br>5<br>calc()<br>0<br>如果已经有一个list或者tuple，要调用一个可变参数怎么办？可以这样做：<br>nums &#x3D; [1, 2, 3]<br>calc(nums[0], nums[1], nums[2])  14<br>这种写法当然是可行的，问题是太繁琐，所以Python允许你在list或tuple前面加一个*号，把list或tuple的元素变成可变参数传进去：<br>nums &#x3D; [1, 2, 3]<br>calc(*nums)<br>14<br>*nums表示把nums这个list的所有元素作为可变参数传进去。这种写法相当有用，而且很常见。</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h3 id="关键字参数"><a href="#关键字参数" class="headerlink" title="关键字参数"></a>关键字参数</h3><p>**参数为关键字参数，用来传入字典</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">可变参数允许你传入<span class="number">0</span>个或任意个参数，这些可变参数在函数调用时自动组装为一个<span class="built_in">tuple</span>。而关键字参数允许你传入<span class="number">0</span>个或任意个含参数名的参数，这些关键字参数在函数内部自动组装为一个<span class="built_in">dict</span>。请看示例：</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">person</span>(<span class="params">name, age, **kw</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;name:&#x27;</span>, name, <span class="string">&#x27;age:&#x27;</span>, age, <span class="string">&#x27;other:&#x27;</span>, kw)</span><br><span class="line">函数person除了必选参数name和age外，还接受关键字参数kw。在调用该函数时，可以只传入必选参数：</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>person(<span class="string">&#x27;Michael&#x27;</span>, <span class="number">30</span>)</span><br><span class="line">name: Michael age: <span class="number">30</span> other: &#123;&#125;</span><br><span class="line">也可以传入任意个数的关键字参数：</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>person(<span class="string">&#x27;Bob&#x27;</span>, <span class="number">35</span>, city=<span class="string">&#x27;Beijing&#x27;</span>)</span><br><span class="line">name: Bob age: <span class="number">35</span> other: &#123;<span class="string">&#x27;city&#x27;</span>: <span class="string">&#x27;Beijing&#x27;</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>person(<span class="string">&#x27;Adam&#x27;</span>, <span class="number">45</span>, gender=<span class="string">&#x27;M&#x27;</span>, job=<span class="string">&#x27;Engineer&#x27;</span>)</span><br><span class="line">name: Adam age: <span class="number">45</span> other: &#123;<span class="string">&#x27;gender&#x27;</span>: <span class="string">&#x27;M&#x27;</span>, <span class="string">&#x27;job&#x27;</span>: <span class="string">&#x27;Engineer&#x27;</span>&#125;</span><br><span class="line">关键字参数有什么用？它可以扩展函数的功能。比如，在person函数里，我们保证能接收到name和age这两个参数，但是，如果调用者愿意提供更多的参数，我们也能收到。试想你正在做一个用户注册的功能，除了用户名和年龄是必填项外，其他都是可选项，利用关键字参数来定义这个函数就能满足注册的需求。</span><br><span class="line"></span><br><span class="line">和可变参数类似，也可以先组装出一个<span class="built_in">dict</span>，然后，把该<span class="built_in">dict</span>转换为关键字参数传进去：</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>extra = &#123;<span class="string">&#x27;city&#x27;</span>: <span class="string">&#x27;Beijing&#x27;</span>, <span class="string">&#x27;job&#x27;</span>: <span class="string">&#x27;Engineer&#x27;</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>person(<span class="string">&#x27;Jack&#x27;</span>, <span class="number">24</span>, city=extra[<span class="string">&#x27;city&#x27;</span>], job=extra[<span class="string">&#x27;job&#x27;</span>])</span><br><span class="line">name: Jack age: <span class="number">24</span> other: &#123;<span class="string">&#x27;city&#x27;</span>: <span class="string">&#x27;Beijing&#x27;</span>, <span class="string">&#x27;job&#x27;</span>: <span class="string">&#x27;Engineer&#x27;</span>&#125;</span><br><span class="line">当然，上面复杂的调用可以用简化的写法：</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>extra = &#123;<span class="string">&#x27;city&#x27;</span>: <span class="string">&#x27;Beijing&#x27;</span>, <span class="string">&#x27;job&#x27;</span>: <span class="string">&#x27;Engineer&#x27;</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>person(<span class="string">&#x27;Jack&#x27;</span>, <span class="number">24</span>, **extra)</span><br><span class="line">name: Jack age: <span class="number">24</span> other: &#123;<span class="string">&#x27;city&#x27;</span>: <span class="string">&#x27;Beijing&#x27;</span>, <span class="string">&#x27;job&#x27;</span>: <span class="string">&#x27;Engineer&#x27;</span>&#125;</span><br><span class="line">**extra表示把extra这个<span class="built_in">dict</span>的所有key-value用关键字参数传入到函数的**kw参数，kw将获得一个<span class="built_in">dict</span>，注意kw获得的<span class="built_in">dict</span>是extra的一份拷贝，对kw的改动不会影响到函数外的extra。</span><br></pre></td></tr></table></figure>
+<h3 id="命名关键字参数"><a href="#命名关键字参数" class="headerlink" title="命名关键字参数"></a>命名关键字参数</h3><p>对于关键字参数，函数的调用者可以传入任意不受限制的关键字参数。至于到底传入了哪些，就需要在函数内部通过kw检查。<br>仍以person()函数为例，我们希望检查是否有city和job参数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">person</span>(<span class="params">name, age, **kw</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="string">&#x27;city&#x27;</span> <span class="keyword">in</span> kw:</span><br><span class="line">        <span class="comment"># 有city参数</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="keyword">if</span> <span class="string">&#x27;job&#x27;</span> <span class="keyword">in</span> kw:</span><br><span class="line">        <span class="comment"># 有job参数</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;name:&#x27;</span>, name, <span class="string">&#x27;age:&#x27;</span>, age, <span class="string">&#x27;other:&#x27;</span>, kw)</span><br><span class="line"></span><br><span class="line">但是调用者仍可以传入不受限制的关键字参数：</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>person(<span class="string">&#x27;Jack&#x27;</span>, <span class="number">24</span>, city=<span class="string">&#x27;Beijing&#x27;</span>, addr=<span class="string">&#x27;Chaoyang&#x27;</span>, zipcode=<span class="number">123456</span>)</span><br><span class="line"></span><br><span class="line">如果要限制关键字参数的名字，就可以用命名关键字参数，例如，只接收city和job作为关键字参数。这种方式定义的函数如下：</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">person</span>(<span class="params">name, age, *, city, job</span>):</span><br><span class="line">    <span class="built_in">print</span>(name, age, city, job)</span><br><span class="line">和关键字参数**kw不同，命名关键字参数需要一个特殊分隔符*，*后面的参数被视为命名关键字参数。</span><br><span class="line"></span><br><span class="line">调用方式如下：</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>person(<span class="string">&#x27;Jack&#x27;</span>, <span class="number">24</span>, city=<span class="string">&#x27;Beijing&#x27;</span>, job=<span class="string">&#x27;Engineer&#x27;</span>)</span><br><span class="line">Jack <span class="number">24</span> Beijing Engineer</span><br><span class="line">如果函数定义中已经有了一个可变参数，后面跟着的命名关键字参数就不再需要一个特殊分隔符*了：</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">person</span>(<span class="params">name, age, *args, city, job</span>):</span><br><span class="line">    <span class="built_in">print</span>(name, age, args, city, job)</span><br><span class="line">命名关键字参数必须传入参数名，这和位置参数不同。如果没有传入参数名，调用将报错：</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>person(<span class="string">&#x27;Jack&#x27;</span>, <span class="number">24</span>, <span class="string">&#x27;Beijing&#x27;</span>, <span class="string">&#x27;Engineer&#x27;</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: person() missing <span class="number">2</span> required keyword-only arguments: <span class="string">&#x27;city&#x27;</span> <span class="keyword">and</span> <span class="string">&#x27;job&#x27;</span></span><br><span class="line">由于调用时缺少参数名city和job，Python解释器把前两个参数视为位置参数，后两个参数传给*args，但缺少命名关键字参数导致报错。</span><br><span class="line"></span><br><span class="line">命名关键字参数可以有缺省值，从而简化调用：</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">person</span>(<span class="params">name, age, *, city=<span class="string">&#x27;Beijing&#x27;</span>, job</span>):</span><br><span class="line">    <span class="built_in">print</span>(name, age, city, job)</span><br><span class="line">由于命名关键字参数city具有默认值，调用时，可不传入city参数：</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>person(<span class="string">&#x27;Jack&#x27;</span>, <span class="number">24</span>, job=<span class="string">&#x27;Engineer&#x27;</span>)</span><br><span class="line">Jack <span class="number">24</span> Beijing Engineer</span><br><span class="line">使用命名关键字参数时，要特别注意，如果没有可变参数，就必须加一个*作为特殊分隔符。如果缺少*，Python解释器将无法识别位置参数和命名关键字参数：</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">person</span>(<span class="params">name, age, city, job</span>):</span><br><span class="line">    <span class="comment"># 缺少 *，city和job被视为位置参数</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="参数组合"><a href="#参数组合" class="headerlink" title="参数组合"></a>参数组合</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">参数组合</span><br><span class="line">在Python中定义函数，可以用必选参数、默认参数、可变参数、关键字参数和命名关键字参数，这<span class="number">5</span>种参数都可以组合使用。但是请注意，参数定义的顺序必须是：必选参数、默认参数、可变参数、命名关键字参数和关键字参数。</span><br><span class="line"></span><br><span class="line">比如定义一个函数，包含上述若干种参数：</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">f1</span>(<span class="params">a, b, c=<span class="number">0</span>, *args, **kw</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;a =&#x27;</span>, a, <span class="string">&#x27;b =&#x27;</span>, b, <span class="string">&#x27;c =&#x27;</span>, c, <span class="string">&#x27;args =&#x27;</span>, args, <span class="string">&#x27;kw =&#x27;</span>, kw)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">f2</span>(<span class="params">a, b, c=<span class="number">0</span>, *, d, **kw</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;a =&#x27;</span>, a, <span class="string">&#x27;b =&#x27;</span>, b, <span class="string">&#x27;c =&#x27;</span>, c, <span class="string">&#x27;d =&#x27;</span>, d, <span class="string">&#x27;kw =&#x27;</span>, kw)</span><br><span class="line">在函数调用的时候，Python解释器自动按照参数位置和参数名把对应的参数传进去。</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f1(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line">a = <span class="number">1</span> b = <span class="number">2</span> c = <span class="number">0</span> args = () kw = &#123;&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f1(<span class="number">1</span>, <span class="number">2</span>, c=<span class="number">3</span>)</span><br><span class="line">a = <span class="number">1</span> b = <span class="number">2</span> c = <span class="number">3</span> args = () kw = &#123;&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f1(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>)</span><br><span class="line">a = <span class="number">1</span> b = <span class="number">2</span> c = <span class="number">3</span> args = (<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>) kw = &#123;&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f1(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, x=<span class="number">99</span>)</span><br><span class="line">a = <span class="number">1</span> b = <span class="number">2</span> c = <span class="number">3</span> args = (<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>) kw = &#123;<span class="string">&#x27;x&#x27;</span>: <span class="number">99</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f2(<span class="number">1</span>, <span class="number">2</span>, d=<span class="number">99</span>, ext=<span class="literal">None</span>)</span><br><span class="line">a = <span class="number">1</span> b = <span class="number">2</span> c = <span class="number">0</span> d = <span class="number">99</span> kw = &#123;<span class="string">&#x27;ext&#x27;</span>: <span class="literal">None</span>&#125;</span><br><span class="line">最神奇的是通过一个<span class="built_in">tuple</span>和<span class="built_in">dict</span>，你也可以调用上述函数：</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>args = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>kw = &#123;<span class="string">&#x27;d&#x27;</span>: <span class="number">99</span>, <span class="string">&#x27;x&#x27;</span>: <span class="string">&#x27;#&#x27;</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f1(*args, **kw)</span><br><span class="line">a = <span class="number">1</span> b = <span class="number">2</span> c = <span class="number">3</span> args = (<span class="number">4</span>,) kw = &#123;<span class="string">&#x27;d&#x27;</span>: <span class="number">99</span>, <span class="string">&#x27;x&#x27;</span>: <span class="string">&#x27;#&#x27;</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>args = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>kw = &#123;<span class="string">&#x27;d&#x27;</span>: <span class="number">88</span>, <span class="string">&#x27;x&#x27;</span>: <span class="string">&#x27;#&#x27;</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f2(*args, **kw)</span><br><span class="line">a = <span class="number">1</span> b = <span class="number">2</span> c = <span class="number">3</span> d = <span class="number">88</span> kw = &#123;<span class="string">&#x27;x&#x27;</span>: <span class="string">&#x27;#&#x27;</span>&#125;</span><br><span class="line">所以，对于任意函数，都可以通过类似func(*args, **kw)的形式调用它，无论它的参数是如何定义的。</span><br><span class="line"></span><br><span class="line"> 虽然可以组合多达<span class="number">5</span>种参数，但不要同时使用太多的组合，否则函数接口的可理解性很差。</span><br></pre></td></tr></table></figure>
+<h1 id="高级语言特性"><a href="#高级语言特性" class="headerlink" title="高级语言特性"></a>高级语言特性</h1><h2 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h2><p><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/1016959663602400/1017269965565856">https://www.liaoxuefeng.com/wiki/1016959663602400/1017269965565856</a></p>
+<h2 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h2><h2 id="列表生成式"><a href="#列表生成式" class="headerlink" title="列表生成式"></a>列表生成式</h2><h2 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h2><h2 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h2></div>
+        </div>
+        
+            <div class="kratos-copyright text-center clearfix">
+                <h5 itemprop="copyrightNotice">本作品采用 <a rel="license nofollow" target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">知识共享署名-相同方式共享 4.0 国际许可协议</a> 进行许可</h5>
+            </div>
+        
+        <footer class="kratos-entry-footer clearfix">
+            
+                <div class="post-like-donate text-center clearfix" id="post-like-donate">
+                
+                
+                    <a class="share" href="javascript:;"><i class="fa fa-share-alt"></i> 分享</a>
+                    <div class="share-wrap" style="display: none;">
+    <div class="share-group">
+        <a href="javascript:;" class="share-plain qq" onclick="share('qq');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-qq"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain qzone" onclick="share('qzone');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-star"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weixin pop style-plain" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weixin"></i>
+            </div>
+            <div class="share-int">
+                <div class="qrcode" id="wechat-qr"></div>
+                <p>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</p>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weibo" onclick="share('weibo');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weibo"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain facebook style-plain" onclick="share('facebook');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-facebook"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain twitter style-plain" onclick="share('twitter');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-twitter"></i>
+            </div>
+        </a>
+    </div>
+    <script type="text/javascript">
+        $(()=>{
+            new QRCode("wechat-qr", {
+                text: "http://yuheng.tech/2023/04/20/%E6%8A%80%E6%9C%AF/python%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%A8/",
+                width: 150,
+                height: 150,
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        });
+        function share(dest) {
+            const qqBase        = "https://connect.qq.com/widget/shareqq/index.html?";
+            const weiboBase     = "https://service.weibo.com/share/share.php?";
+            const qzoneBase     = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?";
+            const facebookBase  = "https://www.facebook.com/sharer/sharer.php?";
+            const twitterBase   = "https://twitter.com/intent/tweet?";
+            const hostUrl       = "http://yuheng.tech/2023/04/20/%E6%8A%80%E6%9C%AF/python%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%A8/";
+            const title         = "「python知识补全」";
+            const excerpt       = `一些易忘知识点`;
+            let _URL;
+            switch (dest) {
+                case "qq"       : _URL = qqBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";     break;
+                case "weibo"    : _URL = weiboBase+"url="+hostUrl+"&title="+title+excerpt;                                 break;
+                case "qzone"    : _URL = qzoneBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";  break;
+                case "facebook" : _URL = facebookBase+"u="+hostUrl;                                                        break;
+                case "twitter"  : _URL = twitterBase+"text="+title+excerpt+"&url="+hostUrl;                                break;
+            }
+            window.open(_URL);
+        };
+    </script>
+</div>
+                
+                </div>
+            
+            <div class="footer-tag clearfix">
+                <div class="pull-left">
+                <i class="fa fa-tags"></i>
+                    <a class="tag-none-link" href="/tags/python/" rel="tag">python</a>
+                </div>
+                <div class="pull-date">
+                    <time datetime="2023-04-21T14:42:03.383Z" itemprop="dateModified">最后编辑：2023-04-21</time>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+        <nav class="navigation post-navigation clearfix" role="navigation">
+            
+            
+            <div class="nav-next clearfix">
+                <a title=" 碎语" href="/2023/04/21/读书/碎语/">下一篇 &gt;</a>
+            </div>
+            
+        </nav>
+    
+    
+        <div id="lv-container" class="post-comments lazy-load" data-id="city" data-uid="MTAyMC81Nzg2NC8zNDMyNw=="></div>
+
+<script>
+    window.livereOptions = {
+        refer: 'yuheng.tech/2023/04/20/%E6%8A%80%E6%9C%AF/python%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%A8/',
+        site: 'http://yuheng.tech/2023/04/20/%E6%8A%80%E6%9C%AF/python%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%A8/',
+        eagerLoading: true //主题会自己处理lazy load，没有必要让LiveRe的脚本再去做lazy load的处理
+    };
+    var load_comm = () => {
+        if (typeof LivereTower === 'undefined') {
+            var d = document, s = d.createElement('script');
+            s.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+            (d.head || d.body).appendChild(s);
+        } else {
+            window.LivereTower.init();
+        }
+    };
+</script>
+<noscript>Please enable JavaScript to view the <a target="_blank" href="https://livere.com/" rel="nofollow noopener">comments powered by LiveRe.</a></noscript>
+    
+</article>
+
+        
+
+            </section>
+
+        
+
+                
+            
+
+<section id="kratos-widget-area" class="col-md-4 hidden-xs hidden-sm">
+    <!-- 文章和页面根据splitter来分割，没有的话就从头开始设置为sticky -->
+    
+    
+                <aside id="krw-about" class="widget widget-kratos-about clearfix">
+    <div class="photo-background"></div>
+    <div class="photo-wrapper clearfix">
+        <div class="photo-wrapper-tip text-center">
+            <img class="about-photo" src="https://yuhengtech.oss-cn-hangzhou.aliyuncs.com/icon/photo.jpg" loading="lazy" decoding="auto" />
+        </div>
+    </div>
+    <div class="textwidget">
+        <p class="text-center"></p>
+    </div>
+    <div class="site-meta">
+        <a class="meta-item" href="/archives/">
+            <span class="title">
+                文章
+            </span>
+            <span class="count">
+                8
+            </span>
+        </a>
+        <a class="meta-item" href="/categories/">
+            <span class="title">
+                分类
+            </span>
+            <span class="count">
+                8
+            </span>
+        </a>
+        <a class="meta-item" href="/tags/">
+            <span class="title">
+                标签
+            </span>
+            <span class="count">
+                5
+            </span>
+        </a>
+    </div>
+</aside>
+            
+                    <div class="sticky-area">
+                
+                
+  <aside id="krw-categories" class="widget widget-kratos-categories clearfix">
+    <h4 class="widget-title"><i class="fa fa-folder"></i>分类目录</h4>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/python/">python</a><span class="category-list-count">2</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%A7%91%E7%A0%94/">科研</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%A7%91%E7%A0%94/%E4%BB%A3%E7%A0%81/">代码</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%98%85%E8%AF%BB/">阅读</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%98%85%E8%AF%BB/%E5%93%B2%E5%AD%A6/">哲学</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%98%85%E8%AF%BB/%E6%96%87%E5%AD%A6/">文学</a><span class="category-list-count">3</span></li></ul></li></ul>
+  </aside>
+
+
+            
+                
+  <aside id="krw-tags" class="widget widget-kratos-tags clearfix">
+    <h4 class="widget-title"><i class="fa fa-tags"></i>标签聚合</h4>
+      <div class="tag-clouds">
+        <a href="/tags/linux/" style="font-size: 0.6em;">linux</a> <a href="/tags/python/" style="font-size: 0.7em;">python</a> <a href="/tags/%E5%93%B2%E5%AD%A6/" style="font-size: 0.6em;">哲学</a> <a href="/tags/%E6%96%87%E5%AD%A6/" style="font-size: 0.8em;">文学</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 0.6em;">算法</a>
+      </div>
+  </aside>
+
+            
+                
+  <aside id="krw-posts" class="widget widget-kratos-posts">
+  <h4 class="widget-title"><i class="fa fa-file"></i>最新文章</h4>
+  <div class="tab-content">
+      <ul class="list-group">
+        
+        
+          
+          
+            <a class="list-group-item" href="/2023/04/21/KNN%E5%AE%9E%E7%8E%B0/"><i class="fa  fa-book"></i> KNN实现</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2023/04/21/%E6%8A%80%E6%9C%AF/linux/"><i class="fa  fa-book"></i> linux命令备忘</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2023/04/21/%E6%8A%80%E6%9C%AF/jupyternotebook%E6%B7%BB%E5%8A%A0%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/"><i class="fa  fa-book"></i> Jupyter notebook添加python虚拟环境</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2023/04/21/%E8%AF%BB%E4%B9%A6/%E7%A6%85%E4%B8%8E%E6%91%A9%E6%89%98%E8%BD%A6%E7%BB%B4%E4%BF%AE%E8%89%BA%E6%9C%AF/"><i class="fa  fa-book"></i> 禅与摩托车维修艺术</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2023/04/21/%E8%AF%BB%E4%B9%A6/%E6%9D%91%E4%B8%8A%E6%98%A5%E6%A0%91/"><i class="fa  fa-book"></i> 村上春树选摘</a>
+            
+          
+        
+          
+            
+          
+            
+          
+            
+      </ul>
+  </div>
+  </aside>
+
+            
+    </div>
+</section>
+        
+        </div>
+    </div>
+</div>
+<footer>
+    <div id="footer"  class="ap-lrc"  >
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 footer-list text-center">
+                    <ul class="kratos-social-icons">
+                        <!-- Keep for compatibility -->
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <!-- New links -->
+                        
+                    </ul>
+                    <ul class="kratos-copyright">
+                        <div>
+                            <li>&copy; 2023 
+                            <li>本站已运行<span id="span_dt">Loading...</span></li>
+                        </div>
+                       
+                        <div>
+                            <li><a href="https://beian.miit.gov.cn" rel="external nofollow" target="_blank">工信部ICP备案： 鲁ICP备 18038887</a></li>
+                            
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="kr-tool text-center">
+            <div class="tool">
+                
+                    <div class="box search-box">
+                        <a href="/search/">
+                            <span class="fa fa-search"></span>
+                        </a>
+                    </div>
+                
+                
+                
+                
+            </div>
+            <div class="box gotop-box">
+                <span class="fa fa-chevron-up"></span>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+
+        <script defer src="/vendors/bootstrap@3.3.4/dist/js/bootstrap.min.js"></script>
+<script defer src="/vendors/nprogress@0.2.0/nprogress.js"></script>
+<script>
+    if (!window.kr) {
+        window.kr = {};
+    }
+    window.kr.notMobile = (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)));
+    window.kr.siteRoot = "/";
+</script>
+
+
+
+
+    <script defer src="/vendors/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    
+    <script defer src="/vendors/meting@2.0.1/dist/Meting.min.js"></script>
+    <meting-js
+        server="netease"
+        type="playlist"
+        id="2138265867"
+        order="random"
+        fixed="true"
+    >
+    </meting-js>
+
+
+
+    <script defer src="/vendors/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+<script defer src="/js/kratosr.min.js"></script>
+<script defer src="/js/pjax.min.js"></script>
+
+
+
+<!-- Extra support for third-party plguins  -->
+
+
+    </body>
+</html>
