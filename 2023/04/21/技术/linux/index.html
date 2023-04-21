@@ -26,7 +26,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://yuhengtech.oss-cn-hangzhou.aliyuncs.com/icon/favicon.png">
 <meta property="article:published_time" content="2023-04-21T10:58:27.000Z">
-<meta property="article:modified_time" content="2023-04-21T12:56:54.807Z">
+<meta property="article:modified_time" content="2023-04-21T15:18:02.956Z">
 <meta property="article:author" content="玉衡">
 <meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
@@ -236,7 +236,7 @@
                         <i class="fa fa-edit"></i> 
                         
                         
-                            227
+                            318
                         
                         字
                     </li>
@@ -248,7 +248,7 @@
             
             <div id="expire-alert" class="alert alert-warning hidden" role="alert">
                 <div class="icon"><i class="fa fa-warning"></i></div>
-                <div class="text"><p>本文最后编辑于 <time datetime="1682081814807"></time> 前，其中的内容可能需要更新。</p></div>
+                <div class="text"><p>本文最后编辑于 <time datetime="1682090282956"></time> 前，其中的内容可能需要更新。</p></div>
             </div>
             
             
@@ -259,7 +259,10 @@
 <h4 id="添加用户"><a href="#添加用户" class="headerlink" title="添加用户"></a>添加用户</h4><p>useradd -d 目录 -m -s &#x2F;bin&#x2F;bash</p>
 <h4 id="远端服务器本地端口映射转发"><a href="#远端服务器本地端口映射转发" class="headerlink" title="远端服务器本地端口映射转发"></a>远端服务器本地端口映射转发</h4><p>ssh转发指令  ssh -L 16006:127.0.0.1:6006 username@ip</p>
 <h4 id="跨设备文件复制"><a href="#跨设备文件复制" class="headerlink" title="跨设备文件复制"></a>跨设备文件复制</h4><p>scp &#x2F;内容 user@ip &#x2F;目录</p>
-<h4 id="linux任务挂后台"><a href="#linux任务挂后台" class="headerlink" title="linux任务挂后台"></a>linux任务挂后台</h4><p>screen create test<br>ctrl+a+d 切入后台<br>screen -ls 列出所有<br>screen -r test 重新连接</p>
+<h4 id="linux任务挂后台"><a href="#linux任务挂后台" class="headerlink" title="linux任务挂后台"></a>linux任务挂后台</h4><p>screen -S test<br>ctrl+a+d 切入后台<br>screen -ls 列出所有<br>screen -r test 重新连接<br>screen -wipe 会话清除</p>
+<blockquote>
+<p>如果由于某种原因其中一个会话死掉了（例如人为杀掉该会话），这时screen -list会显示该会话为dead状态。使用screen -wipe命令清除</p>
+</blockquote>
 </div>
         </div>
         
@@ -349,7 +352,7 @@
                     <a class="tag-none-link" href="/tags/linux/" rel="tag">linux</a>
                 </div>
                 <div class="pull-date">
-                    <time datetime="2023-04-21T12:56:54.807Z" itemprop="dateModified">最后编辑：2023-04-21</time>
+                    <time datetime="2023-04-21T15:18:02.956Z" itemprop="dateModified">最后编辑：2023-04-21</time>
                 </div>
             </div>
         </footer>
