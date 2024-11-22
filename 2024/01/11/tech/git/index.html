@@ -11,23 +11,112 @@
 <meta property="article:author" content="玉衡">
 <meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://yuhengtech.oss-cn-hangzhou.aliyuncs.com/icon/photo.jpg"><link rel="shortcut icon" href="https://yuhengtech.oss-cn-hangzhou.aliyuncs.com/icon/favicon.png"><link rel="canonical" href="http://yuheng.tech/2024/01/11/tech/git/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://file.crazywong.com/npm/@fortawesome/fontawesome-free@latest/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://unpkg.com/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+<meta name="twitter:image" content="https://yuhengtech.oss-cn-hangzhou.aliyuncs.com/icon/photo.jpg"><link rel="shortcut icon" href="https://yuhengtech.oss-cn-hangzhou.aliyuncs.com/icon/favicon.png"><link rel="canonical" href="http://yuheng.tech/2024/01/11/tech/git/index.html"><link rel="preconnect" href="//unpkg.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://file.crazywong.com/npm/@fortawesome/fontawesome-free@latest/css/all.min.css"><link rel="stylesheet" href="https://unpkg.com/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
   root: '/',
   algolia: undefined,
-  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  localSearch: undefined,
   translate: undefined,
-  noticeOutdate: undefined,
-  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
   copy: {
     success: '复制成功',
-    error: '复制错误',
+    error: '复制失败',
     noSupport: '浏览器不支持'
   },
   relativeDate: {
     homepage: false,
     post: false
   },
-  runtime: '天',
+  runtime: '',
   dateSuffix: {
     just: '刚刚',
     min: '分钟前',
@@ -36,13 +125,11 @@
     month: '个月前'
   },
   copyright: {"limitCount":500,"languages":{"author":"作者: 玉衡","link":"链接: ","source":"来源: 玉衡","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
-  lightbox: 'fancybox',
-  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
-  source: {
-    justifiedGallery: {
-      js: 'https://unpkg.com/flickr-justified-gallery/dist/fjGallery.min.js',
-      css: 'https://unpkg.com/flickr-justified-gallery/dist/fjGallery.css'
-    }
+  lightbox: 'null',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://unpkg.com/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
   },
   isPhotoFigcaption: false,
   islazyload: true,
@@ -50,123 +137,21 @@
   percent: {
     toc: true,
     rightside: false,
-  }
+  },
+  autoDarkmode: false
 }</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
   title: 'git笔记',
   isPost: true,
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2024-01-11 23:41:33'
-}</script><noscript><style type="text/css">
-  #nav {
-    opacity: 1
-  }
-  .justified-gallery img {
-    opacity: 1
-  }
-
-  #recent-posts time,
-  #post-meta time {
-    display: inline !important
-  }
-</style></noscript><script>(win=>{
-    win.saveToLocal = {
-      set: function setWithExpiry(key, value, ttl) {
-        if (ttl === 0) return
-        const now = new Date()
-        const expiryDay = ttl * 86400000
-        const item = {
-          value: value,
-          expiry: now.getTime() + expiryDay,
-        }
-        localStorage.setItem(key, JSON.stringify(item))
-      },
-
-      get: function getWithExpiry(key) {
-        const itemStr = localStorage.getItem(key)
-
-        if (!itemStr) {
-          return undefined
-        }
-        const item = JSON.parse(itemStr)
-        const now = new Date()
-
-        if (now.getTime() > item.expiry) {
-          localStorage.removeItem(key)
-          return undefined
-        }
-        return item.value
-      }
-    }
-  
-    win.getScript = url => new Promise((resolve, reject) => {
-      const script = document.createElement('script')
-      script.src = url
-      script.async = true
-      script.onerror = reject
-      script.onload = script.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        script.onload = script.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(script)
-    })
-  
-    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = url
-      if (id) link.id = id
-      link.onerror = reject
-      link.onload = link.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        link.onload = link.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(link)
-    })
-  
-      win.activateDarkMode = function () {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
-        }
-      }
-      win.activateLightMode = function () {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
-        }
-      }
-      const t = saveToLocal.get('theme')
-    
-          if (t === 'dark') activateDarkMode()
-          else if (t === 'light') activateLightMode()
-        
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        if (asideStatus === 'hide') {
-          document.documentElement.classList.add('hide-aside')
-        } else {
-          document.documentElement.classList.remove('hide-aside')
-        }
-      }
-    
-    const detectApple = () => {
-      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-        document.documentElement.classList.add('apple')
-      }
-    }
-    detectApple()
-    })(window)</script><link rel="stylesheet" href="\css\background.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://yuhengtech.oss-cn-hangzhou.aliyuncs.com/icon/photo.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 归类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时记</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img fixed" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="玉衡"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://yuhengtech.oss-cn-hangzhou.aliyuncs.com/icon/favicon.png"/><span class="site-name">玉衡</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 归类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时记</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">git笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-01-11T15:35:53.000Z" title="发表于 2024-01-11 23:35:53">2024-01-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-01-11T15:41:33.859Z" title="更新于 2024-01-11 23:41:33">2024-01-11</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8A%80%E6%9C%AF/git/">git</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="git笔记"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h1 id="Github笔记"><a href="#Github笔记" class="headerlink" title="Github笔记"></a>Github笔记</h1><p>任务管理和 BUG 报告可以通过 Issue 进行交互，如果想让特定用户来看，只要用“@ 用户名”的格式书写，对方便会接到通知（Notifications）<br>GitHub 中可使用的描述方法并不止“@ 用户名”一种。输入“@ 组织名”可以让属于该 Organization（组织）的所有成员收到通知注 a。输入“@ 组织名 &#x2F; 团队”可以让该团队的所有成员收到通知。这就是同时向多人发送通知的方法。输入“# 编号”，会连接到该仓库所对应的 Issue 编号。输入“用户名 &#x2F; 仓库名 # 编号”则可以连接到指定仓库所对应的 Issue编号。只要按照这类特定格式书写便会自动创建链接。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://yuhengtech.oss-cn-hangzhou.aliyuncs.com/img/image.png" alt="image"></p>
+  isShuoshuo: false
+}</script><link rel="stylesheet" href="\css\background.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg" style="background-image: url(https://yuhengtech.oss-cn-hangzhou.aliyuncs.com/icon/bg.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://yuhengtech.oss-cn-hangzhou.aliyuncs.com/icon/photo.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 归类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时记</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img fixed" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://yuhengtech.oss-cn-hangzhou.aliyuncs.com/icon/favicon.png" alt="Logo"><span class="site-name">玉衡</span></a><a class="nav-page-title" href="/"><span class="site-name">git笔记</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 归类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时记</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">git笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-01-11T15:35:53.000Z" title="发表于 2024-01-11 23:35:53">2024-01-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-01-11T15:41:33.859Z" title="更新于 2024-01-11 23:41:33">2024-01-11</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8A%80%E6%9C%AF/git/">git</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h1 id="Github笔记"><a href="#Github笔记" class="headerlink" title="Github笔记"></a>Github笔记</h1><p>任务管理和 BUG 报告可以通过 Issue 进行交互，如果想让特定用户来看，只要用“@ 用户名”的格式书写，对方便会接到通知（Notifications）<br>GitHub 中可使用的描述方法并不止“@ 用户名”一种。输入“@ 组织名”可以让属于该 Organization（组织）的所有成员收到通知注 a。输入“@ 组织名 &#x2F; 团队”可以让该团队的所有成员收到通知。这就是同时向多人发送通知的方法。输入“# 编号”，会连接到该仓库所对应的 Issue 编号。输入“用户名 &#x2F; 仓库名 # 编号”则可以连接到指定仓库所对应的 Issue编号。只要按照这类特定格式书写便会自动创建链接。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://yuhengtech.oss-cn-hangzhou.aliyuncs.com/img/image.png" alt="image"></p>
 <h1 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h1><h2 id="git设置"><a href="#git设置" class="headerlink" title="git设置"></a>git设置</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;Firstname Lastname&quot;</span><br><span class="line">git config --global user.email &quot;your_email@example.com&quot;</span><br><span class="line"></span><br><span class="line">命令会在~/.gitconfig下添加</span><br><span class="line">[user]</span><br><span class="line">	name = yuhengTech</span><br><span class="line">	email = 1322304532@qq.com</span><br><span class="line"></span><br><span class="line">git config --global color.ui auto</span><br><span class="line"></span><br><span class="line">命令会在~/.gitconfig下添加</span><br><span class="line">[color]</span><br><span class="line">	ui = auto</span><br><span class="line"></span><br><span class="line">git config --global credential.helper store   #保存用户名密码</span><br><span class="line">git config --global --list   #列出配置</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="SSH-Key设置"><a href="#SSH-Key设置" class="headerlink" title="SSH Key设置"></a>SSH Key设置</h2><p>密钥生成<br>ssh-keygen -t rsa -C “<a href="mailto:&#121;&#111;&#117;&#114;&#95;&#x65;&#109;&#97;&#x69;&#x6c;&#x40;&#x65;&#x78;&#x61;&#109;&#x70;&#x6c;&#x65;&#46;&#x63;&#111;&#109;">&#121;&#111;&#117;&#114;&#95;&#x65;&#109;&#97;&#x69;&#x6c;&#x40;&#x65;&#x78;&#x61;&#109;&#x70;&#x6c;&#x65;&#46;&#x63;&#111;&#109;</a>“<br>会产生id_rsa（私钥）和id_rsa.pub（公钥）两个文件。<br>把id_rsa.pub（公钥）的内容复制到Github SSH KEYS里面</p>
-<p>在git使用ssh -T <a href="mailto:&#103;&#x69;&#116;&#x40;&#103;&#105;&#x74;&#x68;&#117;&#98;&#46;&#99;&#111;&#x6d;">&#103;&#x69;&#116;&#x40;&#103;&#105;&#x74;&#x68;&#117;&#98;&#46;&#99;&#111;&#x6d;</a>测试连通</p>
+<h2 id="SSH-Key设置"><a href="#SSH-Key设置" class="headerlink" title="SSH Key设置"></a>SSH Key设置</h2><p>密钥生成<br>ssh-keygen -t rsa -C “<a href="mailto:&#121;&#x6f;&#x75;&#114;&#x5f;&#x65;&#109;&#x61;&#x69;&#x6c;&#x40;&#101;&#120;&#x61;&#109;&#112;&#x6c;&#101;&#46;&#x63;&#111;&#109;">&#121;&#x6f;&#x75;&#114;&#x5f;&#x65;&#109;&#x61;&#x69;&#x6c;&#x40;&#101;&#120;&#x61;&#109;&#112;&#x6c;&#101;&#46;&#x63;&#111;&#109;</a>“<br>会产生id_rsa（私钥）和id_rsa.pub（公钥）两个文件。<br>把id_rsa.pub（公钥）的内容复制到Github SSH KEYS里面</p>
+<p>在git使用ssh -T <a href="mailto:&#x67;&#105;&#116;&#64;&#x67;&#x69;&#x74;&#x68;&#x75;&#x62;&#x2e;&#x63;&#x6f;&#x6d;">&#x67;&#105;&#116;&#64;&#x67;&#x69;&#x74;&#x68;&#x75;&#x62;&#x2e;&#x63;&#x6f;&#x6d;</a>测试连通</p>
 <blockquote>
-<p>会显示$ ssh -T <a href="mailto:&#103;&#x69;&#116;&#64;&#x67;&#x69;&#x74;&#104;&#117;&#x62;&#x2e;&#x63;&#111;&#109;">&#103;&#x69;&#116;&#64;&#x67;&#x69;&#x74;&#104;&#117;&#x62;&#x2e;&#x63;&#111;&#109;</a><br>Hi yuhengTech! You’ve successfully authenticated, but GitHub does not provide shell access.</p>
+<p>会显示$ ssh -T <a href="mailto:&#x67;&#x69;&#116;&#x40;&#103;&#105;&#116;&#x68;&#x75;&#x62;&#46;&#x63;&#111;&#x6d;">&#x67;&#x69;&#116;&#x40;&#103;&#105;&#116;&#x68;&#x75;&#x62;&#46;&#x63;&#111;&#x6d;</a><br>Hi yuhengTech! You’ve successfully authenticated, but GitHub does not provide shell access.</p>
 </blockquote>
 <p>怎么更换git远程仓库地址<br>方法一：</p>
 <p>直接在当前项目输入一下命令</p>
@@ -174,7 +159,7 @@
 <p>git remote origin<br>git remote add origin 新的远程仓库地址</p>
 <h2 id="git常用命令"><a href="#git常用命令" class="headerlink" title="git常用命令"></a>git常用命令</h2><h3 id="gitignore"><a href="#gitignore" class="headerlink" title="gitignore"></a>gitignore</h3><p>文件 .gitignore 的格式规范如下：<br>所有空行或者以 # 开头的行都会被 Git 忽略。<br>可以使用标准的 glob 模式匹配，它会递归地应用在整个工作区中。<br>匹配模式可以以（&#x2F;）开头防止递归。<br>匹配模式可以以（&#x2F;）结尾指定目录。<br>要忽略指定模式以外的文件或目录，可以在模式前加上叹号（!）取反。</p>
 <p>.gitignore对于已经添加到版本库的文件不生效，需要使用git rm –cached file_name 然后再使用ignore生效</p>
-<h3 id="git-clone"><a href="#git-clone" class="headerlink" title="git clone"></a>git clone</h3><p>SSH形式<br>git clone <a href="mailto:&#x67;&#x69;&#x74;&#64;&#x67;&#x69;&#x74;&#x68;&#x75;&#x62;&#46;&#x63;&#111;&#x6d;">&#x67;&#x69;&#x74;&#64;&#x67;&#x69;&#x74;&#x68;&#x75;&#x62;&#46;&#x63;&#111;&#x6d;</a>:hirocastest&#x2F;Hello-World.git<br>HTTPS形式<br>git clone <a target="_blank" rel="noopener" href="https://github.com/yuhengTech/gitStudy.git">https://github.com/yuhengTech/gitStudy.git</a></p>
+<h3 id="git-clone"><a href="#git-clone" class="headerlink" title="git clone"></a>git clone</h3><p>SSH形式<br>git clone <a href="mailto:&#103;&#x69;&#116;&#x40;&#103;&#105;&#116;&#104;&#117;&#x62;&#46;&#x63;&#x6f;&#x6d;">&#103;&#x69;&#116;&#x40;&#103;&#105;&#116;&#104;&#117;&#x62;&#46;&#x63;&#x6f;&#x6d;</a>:hirocastest&#x2F;Hello-World.git<br>HTTPS形式<br>git clone <a target="_blank" rel="noopener" href="https://github.com/yuhengTech/gitStudy.git">https://github.com/yuhengTech/gitStudy.git</a></p>
 <blockquote>
 <p>Https 和 SSH 的区别<br>就 Git 而言，https 和 ssh 的区别简单的说就是：<br>https： git clone 和 git pull 无限制，git push 需要提供 credential，一般是你的 github（如果 remote repository 托管在 github 上的话）的用户名和密码；<br>ssh：因为需要在托管平台上设置 ssh public key，所以要求你必须是该 repository 的拥有者或者管理员。git push 时，无需输入用户名，如果在生成 ssh key 的时候设置了密码，则需要输入密码，否则不需要。<br>选择过程中的一些建议<br>如果开发环境在 windows ，产品环境在 linux，建议在 windows 下使用 https，在 linux 下使用 ssh。除了 ssh 本身的限制，这个建议还考虑到其他两个因素：方便、安全。如果 linux 下使用 https，安全性没问题，但为了方便，当然希望在访问 remote repository 时可以免密码。关于这一点，网上大多数的解决方案是将用户名和密码包含在远程地址中，然后使用 git config –global credential.helper store 将 credential 信息以明文方式存储在 .git-credentials 文件中。这样一来，安全性不能保证。所以建议在 linux 下使用 ssh 方式。虽然 ssh key 的部署略微有点麻烦，但是一旦部署好，能同时保证安全性和便捷性。<br>因为 linux 下使用了 ssh 方式，并且产品环境下的 ssh private key 不能轻易泄露。所以 windows 下建议使用 https 方式。windows 下有 git-credential-winstore 和 git-credential-manager-for-windows 用以存储 credential，所以安全性和便捷性同样可以保证。<br>如果有多人共同维护产品，ssh 无疑是最好的选择。因为多人维护，所以项目部署至产品环境，无论产品环境是 windows 还是 linux，需要一个统一的密码（即使这个密码为空）。如果使用 https 方式，必须以一个人的账号和密码作为 credential， 这样会有两个问题，一是不利于个人隐私的保护，二是如果此人出现人事变动，会带来不必要的麻烦。<br>【使用区别】<br>clone项目：<br>　　使用ssh方式时，需要配置ssh key，即要将生成的SSH密钥对的公钥上传至服务器；<br>　　使用http方式时，没有要求，可以直接克隆下来。<br>push项目：<br>　　使用ssh方式时，不需要验证用户名和密码，之前配置过ssh key，(如果你没设置密码)直接push即可；<br>　　使用http方式时，需要验证用户名和密码。<br> 总结：<br>HTTPS利于匿名访问，适合开源项目，可以方便被别人克隆和读取(但没有push权限)；<br>SSH不利于匿名访问，比较适合内部项目，只要配置了SSH公钥极可自由实现clone和push操作。</p>
 </blockquote>
@@ -234,113 +219,131 @@
 <p>git branch<br>与 git checkout 不同，git switch 更容易理解和使用，因为它专注于分支切换的操作，此外，git switch 还提供了更好的错误检查，可以避免一些常见的错误操作。</p>
 <h3 id="git-merge-合并分支"><a href="#git-merge-合并分支" class="headerlink" title="git merge 合并分支"></a>git merge 合并分支</h3><p>假设合并feature 分支<br>git checkout master<br>git merge –no-ff feature-A</p>
 <p><a target="_blank" rel="noopener" href="https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2">https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2</a></p>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://yuheng.tech">玉衡</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yuheng.tech/2024/01/11/tech/git/">http://yuheng.tech/2024/01/11/tech/git/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yuheng.tech" target="_blank">玉衡</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/git/">git</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/09/09/tech/Hexo/" title="Hexo"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Hexo</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="lv-container" data-id="city" data-uid="MTAyMC81Nzg2NC8zNDMyNw=="></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Github%E7%AC%94%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text">Github笔记</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Git"><span class="toc-number">2.</span> <span class="toc-text">Git</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#git%E8%AE%BE%E7%BD%AE"><span class="toc-number">2.1.</span> <span class="toc-text">git设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSH-Key%E8%AE%BE%E7%BD%AE"><span class="toc-number">2.2.</span> <span class="toc-text">SSH Key设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">2.3.</span> <span class="toc-text">git常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#gitignore"><span class="toc-number">2.3.1.</span> <span class="toc-text">gitignore</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#git-clone"><span class="toc-number">2.3.2.</span> <span class="toc-text">git clone</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#git-diff-%E7%89%88%E6%9C%AC%E6%AF%94%E8%BE%83"><span class="toc-number">2.3.3.</span> <span class="toc-text">git diff 版本比较</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#rm-%E5%88%A0%E9%99%A4%E6%93%8D%E4%BD%9C"><span class="toc-number">2.4.</span> <span class="toc-text">rm 删除操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%88%E6%9C%AC%E5%9B%9E%E9%80%80%EF%BC%9A"><span class="toc-number">2.5.</span> <span class="toc-text">版本回退：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C"><span class="toc-number">2.6.</span> <span class="toc-text">分支操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#git-branch-%E6%9F%A5%E7%9C%8B%E5%88%86%E6%94%AF"><span class="toc-number">2.6.1.</span> <span class="toc-text">git branch 查看分支</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#git-checkout-b-master%E5%88%9B%E5%BB%BA%E5%88%86%E6%94%AF"><span class="toc-number">2.6.2.</span> <span class="toc-text">git checkout -b master创建分支</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#git-checkout-%E5%88%87%E6%8D%A2%E5%88%86%E6%94%AF"><span class="toc-number">2.6.3.</span> <span class="toc-text">git checkout 切换分支</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#git%E6%96%B0%E7%89%88%E6%9C%AC"><span class="toc-number">2.6.4.</span> <span class="toc-text">git新版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E6%80%A7%E5%88%86%E6%94%AF"><span class="toc-number">2.6.5.</span> <span class="toc-text">特性分支</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#git-merge-%E5%90%88%E5%B9%B6%E5%88%86%E6%94%AF"><span class="toc-number">2.6.6.</span> <span class="toc-text">git merge 合并分支</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/11/tech/git/" title="git笔记">git笔记</a><time datetime="2024-01-11T15:35:53.000Z" title="发表于 2024-01-11 23:35:53">2024-01-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/09/09/tech/Hexo/" title="Hexo">Hexo</a><time datetime="2023-09-08T16:00:00.000Z" title="发表于 2023-09-09 00:00:00">2023-09-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/08/02/tech/UI/" title="前端">前端</a><time datetime="2023-08-02T04:13:45.000Z" title="发表于 2023-08-02 12:13:45">2023-08-02</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2024 By 玉衡</div><div class="footer_custom_text"><a href="https://beian.miit.gov.cn/" target="_blank">鲁ICP备18038887号-1</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://unpkg.com/hexo-theme-butterfly/source/js/utils.js"></script><script src="https://unpkg.com/hexo-theme-butterfly/source/js/main.js"></script><script src="https://unpkg.com/@fancyapps/ui/dist/fancybox/fancybox.umd.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/instant.page/5.1.0/instantpage.min.js" type="module"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/vanilla-lazyload/17.3.1/lazyload.iife.min.js"></script><script src="https://unpkg.com/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
-  if (typeof pangu === 'object') pangu.autoSpacingPage()
-  else {
-    getScript('https://unpkg.com/pangu/dist/browser/pangu.min.js')
-      .then(() => {
-        pangu.autoSpacingPage()
-      })
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://yuheng.tech">玉衡</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://yuheng.tech/2024/01/11/tech/git/">http://yuheng.tech/2024/01/11/tech/git/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://yuheng.tech" target="_blank">玉衡</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/git/">git</a></div><div class="post-share"><div class="social-share" data-image="https://yuhengtech.oss-cn-hangzhou.aliyuncs.com/icon/photo.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://unpkg.com/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://unpkg.com/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2023/09/09/tech/Hexo/" title="Hexo"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Hexo</div></div><div class="info-2"><div class="info-item-1">用来记录Hexo的各种设置</div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="lv-container" data-id="city" data-uid="MTAyMC81Nzg2NC8zNDMyNw=="></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Github%E7%AC%94%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text">Github笔记</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Git"><span class="toc-number">2.</span> <span class="toc-text">Git</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#git%E8%AE%BE%E7%BD%AE"><span class="toc-number">2.1.</span> <span class="toc-text">git设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSH-Key%E8%AE%BE%E7%BD%AE"><span class="toc-number">2.2.</span> <span class="toc-text">SSH Key设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">2.3.</span> <span class="toc-text">git常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#gitignore"><span class="toc-number">2.3.1.</span> <span class="toc-text">gitignore</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#git-clone"><span class="toc-number">2.3.2.</span> <span class="toc-text">git clone</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#git-diff-%E7%89%88%E6%9C%AC%E6%AF%94%E8%BE%83"><span class="toc-number">2.3.3.</span> <span class="toc-text">git diff 版本比较</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#rm-%E5%88%A0%E9%99%A4%E6%93%8D%E4%BD%9C"><span class="toc-number">2.4.</span> <span class="toc-text">rm 删除操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%88%E6%9C%AC%E5%9B%9E%E9%80%80%EF%BC%9A"><span class="toc-number">2.5.</span> <span class="toc-text">版本回退：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C"><span class="toc-number">2.6.</span> <span class="toc-text">分支操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#git-branch-%E6%9F%A5%E7%9C%8B%E5%88%86%E6%94%AF"><span class="toc-number">2.6.1.</span> <span class="toc-text">git branch 查看分支</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#git-checkout-b-master%E5%88%9B%E5%BB%BA%E5%88%86%E6%94%AF"><span class="toc-number">2.6.2.</span> <span class="toc-text">git checkout -b master创建分支</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#git-checkout-%E5%88%87%E6%8D%A2%E5%88%86%E6%94%AF"><span class="toc-number">2.6.3.</span> <span class="toc-text">git checkout 切换分支</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#git%E6%96%B0%E7%89%88%E6%9C%AC"><span class="toc-number">2.6.4.</span> <span class="toc-text">git新版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E6%80%A7%E5%88%86%E6%94%AF"><span class="toc-number">2.6.5.</span> <span class="toc-text">特性分支</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#git-merge-%E5%90%88%E5%B9%B6%E5%88%86%E6%94%AF"><span class="toc-number">2.6.6.</span> <span class="toc-text">git merge 合并分支</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/11/tech/git/" title="git笔记">git笔记</a><time datetime="2024-01-11T15:35:53.000Z" title="发表于 2024-01-11 23:35:53">2024-01-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/09/09/tech/Hexo/" title="Hexo">Hexo</a><time datetime="2023-09-08T16:00:00.000Z" title="发表于 2023-09-09 00:00:00">2023-09-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/08/02/tech/UI/" title="前端">前端</a><time datetime="2023-08-02T04:13:45.000Z" title="发表于 2023-08-02 12:13:45">2023-08-02</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2024 By 玉衡</div><div class="footer_custom_text"><a href="https://beian.miit.gov.cn/" target="_blank">鲁ICP备18038887号-1</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://unpkg.com/hexo-theme-butterfly/source/js/utils.js"></script><script src="https://unpkg.com/hexo-theme-butterfly/source/js/main.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/instant.page/5.1.0/instantpage.min.js" type="module"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/vanilla-lazyload/17.3.1/lazyload.iife.min.js"></script><script src="https://unpkg.com/node-snackbar/dist/snackbar.min.js"></script><script>(() => {
+  const panguFn = () => {
+    if (typeof pangu === 'object') pangu.autoSpacingPage()
+    else {
+      btf.getScript('https://unpkg.com/pangu/dist/browser/pangu.min.js')
+        .then(() => {
+          pangu.autoSpacingPage()
+        })
+    }
   }
-}
 
-function panguInit () {
-  if (false){
-    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  const panguInit = () => {
+    if (false){
+      GLOBAL_CONFIG_SITE.isPost && panguFn()
+    } else {
+      panguFn()
+    }
+  }
+
+  btf.addGlobalFn('pjaxComplete', panguInit, 'pangu')
+  document.addEventListener('DOMContentLoaded', panguInit)
+})()</script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+
+  const loadLivere = (el, path) => {
+    window.livereOptions = {
+      refer: path || location.pathname
+    }
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyLivere = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    if (typeof LivereTower === 'object') window.LivereTower.init()
+    else {
+      (function(d, s) {
+          var j, e = d.getElementsByTagName(s)[0];
+          if (typeof LivereTower === 'function') { return; }
+          j = d.createElement(s);
+          j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+          j.async = true;
+          e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    }
+  }
+
+  if (isShuoshuo) {
+    'Livere' === 'Livere'
+      ? window.shuoshuoComment = { loadComment: loadLivere }
+      : window.loadOtherComment = loadLivere
+    return
+  }
+
+  if ('Livere' === 'Livere' || !true) {
+    if (true) btf.loadComment(document.getElementById('lv-container'), loadLivere)
+    else loadLivere()
   } else {
-    panguFn()
+    window.loadOtherComment = loadLivere
   }
-}
-
-document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>function loadLivere () {
-  if (typeof LivereTower === 'object') {
-    window.LivereTower.init()
-  }
-  else {
-    (function(d, s) {
-        var j, e = d.getElementsByTagName(s)[0];
-        if (typeof LivereTower === 'function') { return; }
-        j = d.createElement(s);
-        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-        j.async = true;
-        e.parentNode.insertBefore(j, e);
-    })(document, 'script');
-  }
-}
-
-if ('Livere' === 'Livere' || !true) {
-  if (true) btf.loadComment(document.getElementById('lv-container'), loadLivere)
-  else loadLivere()
-}
-else {
-  function loadOtherComment () {
-    loadLivere()
-  }
-}</script></div><div class="aplayer no-destroy" data-id="2138265867" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="false" data-order="random" data-lrctype=1> </div><link rel="stylesheet" href="https://unpkg.com/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://unpkg.com/aplayer/dist/APlayer.min.js"></script><script src="https://unpkg.com/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://unpkg.com/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
-
-var pjax = new Pjax({
-  elements: 'a:not([target="_blank"])',
-  selectors: pjaxSelectors,
-  cacheBust: false,
-  analytics: false,
-  scrollRestoration: false
-})
-
-document.addEventListener('pjax:send', function () {
-
-  // removeEventListener scroll 
-  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
-  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
-
-  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
-  
-  if (window.aplayers) {
-    for (let i = 0; i < window.aplayers.length; i++) {
-      if (!window.aplayers[i].options.fixed) {
-        window.aplayers[i].destroy()
+})()</script></div><div class="aplayer no-destroy" data-id="2138265867" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="false" data-order="random" data-lrctype=1> </div><link rel="stylesheet" href="https://unpkg.com/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://unpkg.com/aplayer/dist/APlayer.min.js"></script><script src="https://unpkg.com/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
       }
     }
   }
 
-  typeof typed === 'object' && typed.destroy()
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
 
-  //reset readmode
-  const $bodyClassList = document.body.classList
-  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://unpkg.com/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
 
-  typeof disqusjs === 'object' && disqusjs.destroy()
-})
-
-document.addEventListener('pjax:complete', function () {
-  window.refreshFn()
-
-  document.querySelectorAll('script[data-pjax]').forEach(item => {
-    const newScript = document.createElement('script')
-    const content = item.text || item.textContent || item.innerHTML || ""
-    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
-    newScript.appendChild(document.createTextNode(content))
-    item.parentNode.replaceChild(newScript, item)
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
   })
 
-  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
-
-  typeof chatBtnFn === 'function' && chatBtnFn()
-  typeof panguInit === 'function' && panguInit()
-
-  // google analytics
-  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
-
-  // baidu analytics
-  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
-
-  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
-
-  // prismjs
-  typeof Prism === 'object' && Prism.highlightAll()
-})
-
-document.addEventListener('pjax:error', (e) => {
-  if (e.request.status === 404) {
-    pjax.loadUrl('/404.html')
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
   }
-})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="https://unpkg.com/hexo-theme-butterfly/source/js/search/local-search.js"></script></div></div></body></html>
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      pjax.loadUrl('/404.html')
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
